@@ -3,6 +3,8 @@ package unihealthmanagementsystem.oop;
 import java.util.ArrayList;
 
 public class Diagnostic1 {
+    
+    // Vatriable, Objects and Instances
     private String diagnosticId;
     private String condition;
     private String temperature;
@@ -12,6 +14,7 @@ public class Diagnostic1 {
     private String time;
     private String date;
 
+    // Constructor
     public Diagnostic1(String diagnosticId, String condition, ArrayList disease, String temperature, String phySugges, String diaRes, String time, String date) {
         this.diagnosticId = diagnosticId;
         this.condition = condition;
@@ -23,6 +26,7 @@ public class Diagnostic1 {
         this.disease = disease;
     }
 
+    // Getters and Setters
     public ArrayList getDisease() {
         return disease;
     }

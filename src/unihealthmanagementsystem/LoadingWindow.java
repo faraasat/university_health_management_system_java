@@ -1,14 +1,16 @@
 package unihealthmanagementsystem;
 
-import unihealthmanagementsystem.User.Login;
 import static java.lang.System.exit;
+import unihealthmanagementsystem.User.Login;
 
 public class LoadingWindow extends javax.swing.JFrame {
     
+    // Constructor
     public LoadingWindow() throws InterruptedException {
         initComponents();
     }
 
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -94,11 +96,16 @@ public class LoadingWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // lblCloseMouseClicked Mouse Event
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
+        
         exit(0);
+        
     }//GEN-LAST:event_lblCloseMouseClicked
 
+    // Main Method
     public static void main(String args[]) throws InterruptedException {
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -106,38 +113,42 @@ public class LoadingWindow extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LoadingWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-        Login login = new Login();
-        LoadingWindow lw = new LoadingWindow();
+
+        LoadingWindow loadingWindow = new LoadingWindow();
         java.awt.EventQueue.invokeLater(() -> {
-            lw.setVisible(true);
+            loadingWindow.setVisible(true);
         });
         
         try {
             for(int i = 0; i <= 100; i+=2){
                 if(i <= 25){
                     Thread.sleep(150);
-                    lw.proLoad.setValue(i);
-                    lw.lblLoad.setText("Initializing...   " + i + " %");
-                } else if(i >= 50 && i <= 75){
+                    loadingWindow.proLoad.setValue(i);
+                    loadingWindow.lblLoad.setText("Initializing...   " + i + " %");
+                } 
+                else if(i >= 50 && i <= 75){
                     Thread.sleep(60);
-                    lw.proLoad.setValue(i);
-                    lw.lblLoad.setText("Loading...   " + i + " %");
-                } else if(i > 75){
+                    loadingWindow.proLoad.setValue(i);
+                    loadingWindow.lblLoad.setText("Loading...   " + i + " %");
+                } 
+                else if(i > 75){
                     Thread.sleep(40);
-                    lw.proLoad.setValue(i);
-                    lw.lblLoad.setText("Bulding Components...   " + i + " %");
+                    loadingWindow.proLoad.setValue(i);
+                    loadingWindow.lblLoad.setText("Bulding Components...   " + i + " %");
                 }
             }
-        } catch (InterruptedException e) {
-        }
+        } 
+        catch (InterruptedException e) { }
         finally{
+            Login login = Login.getInstance();
             login.setVisible(true);
-            lw.setVisible(false);
+            loadingWindow.setVisible(false);
         }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

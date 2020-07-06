@@ -5,12 +5,22 @@ import javax.swing.JOptionPane;
 
 public class AddPatient extends javax.swing.JFrame {
     
+    // Constructor
     public AddPatient() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\AdminIcoSm.png");
         this.setIconImage(img.getImage());
     }
+    
+    // Creating Instance
+    private static AddPatient instance = null;
+    public static AddPatient getInstance() {
+        if(instance == null)
+            instance = new AddPatient();
+        return instance;
+    }
 
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,14 +95,19 @@ public class AddPatient extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnBackMouseClicked Mouse Event
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        PatientPanel pp = new PatientPanel();
-        pp.setVisible(true);
+        
+        PatientPanel patientPanel = PatientPanel.getInstance();
+        patientPanel.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnBackMouseClicked
-
+    
+    // btnProMouseClicked Mouse Event
     private void btnProMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProMouseClicked
+        
         String selection = comSel.getSelectedItem().toString();
         switch (selection) {
             case "Student":
@@ -114,8 +129,10 @@ public class AddPatient extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Please make a selection");
                 break;
         }
+        
     }//GEN-LAST:event_btnProMouseClicked
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

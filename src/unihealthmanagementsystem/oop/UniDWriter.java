@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class UniDWriter implements Serializable{
     
+    // stuWriter Method
     public boolean StuWrite(PhyInfo p, Student s, Diagnostic1 d){
         try {
             try (BufferedWriter myWriter = new BufferedWriter(
@@ -17,12 +18,14 @@ public class UniDWriter implements Serializable{
                         d.getDiagnosticId()+";"+d.getCondition()+";"+d.getTemperature()+";"+d.getDisease()+";"+d.getPhySugges()+";"+d.getDiaRes()+";"+d.getTime()+";"+d.getDate()+"\n");
             }
             return true;
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             System.out.println(e);
             return false;
         }
     }
     
+    // FacWriter Method
     public boolean FacWrite(PhyInfo p, Faculty s, Diagnostic1 d){
         try {
             try (BufferedWriter myWriter = new BufferedWriter(
@@ -33,12 +36,14 @@ public class UniDWriter implements Serializable{
                         d.getDiagnosticId()+";"+d.getCondition()+";"+d.getTemperature()+";"+d.getDisease()+";"+d.getPhySugges()+";"+d.getDiaRes()+";"+d.getTime()+";"+d.getDate()+"\n");
             }
             return true;
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             System.out.println(e);
             return false;
         }
     }
     
+    // WorWrite Method
     public boolean WorWrite(PhyInfo p, Worker s, Diagnostic1 d){
         try {
             try (BufferedWriter myWriter = new BufferedWriter(
@@ -49,9 +54,11 @@ public class UniDWriter implements Serializable{
                         d.getDiagnosticId()+";"+d.getCondition()+";"+d.getTemperature()+";"+d.getDisease()+";"+d.getPhySugges()+";"+d.getDiaRes()+";"+d.getTime()+";"+d.getDate()+"\n");
             }
             return true;
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             System.out.println(e);
             return false;
         }
     }
+    
 }

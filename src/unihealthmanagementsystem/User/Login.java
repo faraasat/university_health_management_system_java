@@ -6,19 +6,30 @@ import java.sql.*;
 import static java.lang.System.exit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 
 public class Login extends javax.swing.JFrame{
+    
+    // Variables and Objects
+    String nameFor;
+    DbClass dbClass = DbClass.getInstance();
 
+    // Constructor
     public Login() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\AdminIcoSm.png");
         this.setIconImage(img.getImage());
     }
-        
-    String nameFor;
-    dbClass db = new dbClass();
     
+    // Creating Instance
+    private static Login instance = null;
+    public static Login getInstance() {
+        if(instance == null)
+            instance = new Login();
+        return instance;
+    }
+    
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -114,44 +125,58 @@ public class Login extends javax.swing.JFrame{
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnAdminModeActionPerformed Action Event
     private void btnAdminModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminModeActionPerformed
-        Admin admin = new Admin();
+        
+        Admin admin = Admin.getInstance();
         admin.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnAdminModeActionPerformed
 
+    // BtnOkActionPerformed Action Event
     private void BtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnOkActionPerformed
-            db.Connect();
-            ResultSet rs = db.findUsername(txtUser.getText(), "userLogin");
-            String hello = txtUser.getText();
-            try {
-                if(txtUser.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Please enter the username");
-                } else if(rs == null){
-                    JOptionPane.showMessageDialog(null, "User not Found", "Error", JOptionPane.ERROR_MESSAGE);                
-                } else if(passPass.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Please Enter Password");
-                } else if(rs.getString(3).equals(passPass.getText())) {
-                    PatientPanel pp = new PatientPanel();
-                    pp.setVisible(true);
-                    Login lg = new Login();
-                    this.setVisible(false);
-                    this.dispose();
-                    DiagnosisSystem.setNameFor(hello);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Password Incorrect", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (HeadlessException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
+            
+        dbClass.Connect();
+        ResultSet rs = dbClass.findUsername(txtUser.getText(), "userLogin");
+        String hello = txtUser.getText();
+        
+        try {
+            if(txtUser.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Please enter the username");
+            } 
+            else if(rs == null){
+                JOptionPane.showMessageDialog(null, "User not Found", "Error", JOptionPane.ERROR_MESSAGE);                
             }
+            else if(passPass.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Please Enter Password");
+            } 
+            else if(rs.getString(3).equals(passPass.getText())) {
+                PatientPanel patientPanel = PatientPanel.getInstance();
+                patientPanel.setVisible(true);
+                this.setVisible(false);
+                this.dispose();
+                DiagnosisSystem.setNameFor(hello);
+            } 
+            else {
+                JOptionPane.showMessageDialog(null, "Password Incorrect", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } 
+        catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
      
     }//GEN-LAST:event_BtnOkActionPerformed
 
+    // btnCancelActionPerformed Action Event
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        
         exit(0);
+        
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    // Main Mehtod
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

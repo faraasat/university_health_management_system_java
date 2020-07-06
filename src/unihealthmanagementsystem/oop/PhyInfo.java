@@ -1,6 +1,8 @@
 package unihealthmanagementsystem.oop;
 
 public class PhyInfo {
+    
+    // Vatriable, Objects and Instances
     private String genNo;
     private String id;
     private String phyName;
@@ -8,6 +10,7 @@ public class PhyInfo {
     private String address;
     private String mobile;
 
+    // Constructor
     public PhyInfo(String genNo, String id, String phyName, String email, String address, String mobile) {
         this.genNo = genNo;
         this.id = id;
@@ -17,6 +20,7 @@ public class PhyInfo {
         this.mobile = mobile;
     }
 
+    // Getters and Setters
     public String getId() {
         return id;
     }

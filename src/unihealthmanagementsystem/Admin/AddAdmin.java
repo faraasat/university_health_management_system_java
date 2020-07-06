@@ -3,17 +3,29 @@ package unihealthmanagementsystem.Admin;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 
 public class AddAdmin extends javax.swing.JFrame {
+    
+    // Objects, instances and variables
+    DbClass dbClass = DbClass.getInstance();
 
+    // Constructor
     public AddAdmin() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\LoginIcoSm.png");
         this.setIconImage(img.getImage());
     }
     
-    dbClass dc = new dbClass();
+    // Creating Instance
+    private static AddAdmin instance = null;
+    public static AddAdmin getInstance() {
+        if(instance == null)
+            instance = new AddAdmin();
+        return instance;
+    }
+    
+    // Email Validation Method
     static boolean isEmailValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
@@ -109,30 +121,39 @@ public class AddAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnBackMouseClicked Mouse Event
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        AdminPanel ap = new AdminPanel();
-        ap.setVisible(true);
+        
+        AdminPanel adminPanel = AdminPanel.getInstance();
+        adminPanel.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnBackMouseClicked
 
+//    btnAddMouseClicked Mouse Event
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        AdminPanel ap = new AdminPanel();
-        dc.Connect();
-        ResultSet rs = dc.findUsername(txtUser.getText(), "adminLogin");
+       
+        dbClass.Connect();
+        ResultSet rs = dbClass.findUsername(txtUser.getText(), "adminLogin");
+        
         if(txtUser.getText().equals("") || txtPass.getText().equals("") || txtEmail.getText().equals("")){
             JOptionPane.showMessageDialog(null, "All fields are mandatory");
-        } else if(rs != null){
+        } 
+        else if(rs != null){
                 JOptionPane.showMessageDialog(null, "User alredy exist");
-        } else if(txtUser.getText() != ""){
+        } 
+        else if(txtUser.getText() != ""){
             boolean value = isEmailValid(txtEmail.getText());
             if(!value){
                 JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
-            } else{
-                boolean val = dc.addAdmin(txtUser.getText(), txtPass.getText(), txtEmail.getText());
+            } 
+            else{
+                boolean val = dbClass.addAdmin(txtUser.getText(), txtPass.getText(), txtEmail.getText());
                 if (val) {
                     JOptionPane.showMessageDialog(null, "Error Adding data", "Error", JOptionPane.ERROR_MESSAGE);
-                } else{
+                } 
+                else{
                     JOptionPane.showMessageDialog(null, "Successfully added");
                     txtUser.setText("");
                     txtPass.setText("");
@@ -140,8 +161,10 @@ public class AddAdmin extends javax.swing.JFrame {
                 }
             }
         }
+        
     }//GEN-LAST:event_btnAddMouseClicked
 
+    // Main method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

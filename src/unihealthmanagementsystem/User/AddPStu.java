@@ -5,10 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 
 public class AddPStu extends javax.swing.JFrame {
 
+    // Variables, Methods and Instances
+    DbClass dbClass = new DbClass();
+    PatientPanel patientPanel = new PatientPanel();
+    
+    // constructor
     public AddPStu() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\AdminIcoSm.png");
@@ -17,13 +22,21 @@ public class AddPStu extends javax.swing.JFrame {
         lblCountry.setVisible(false);
     }
     
-    dbClass dc = new dbClass();
-    PatientPanel pp = new PatientPanel();
+    // Creating Instance
+    private static AddPStu instance = null;
+    public static AddPStu getInstance() {
+        if(instance == null)
+            instance = new AddPStu();
+        return instance;
+    }
+    
+    // Email Validation Method
     static boolean isEmailValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }
 
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -492,59 +505,76 @@ public class AddPStu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnCancelMouseClicked Mouse Event
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        dc.clearAll(this.getContentPane());
-        PatientPanel ap = new PatientPanel();
+        
+        dbClass.clearAll(this.getContentPane());
+        PatientPanel ap = PatientPanel.getInstance();
         ap.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnCancelMouseClicked
 
+    // btnOkMouseClicked Mouse Event
     private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
-        dc.Connect();
-        ResultSet rs = dc.findUsername(txtName.getText(), txtRegNo.getText() ,"patientDetails");
+        
+        dbClass.Connect();
+        ResultSet rs = dbClass.findUsername(txtName.getText(), txtRegNo.getText() ,"patientDetails");
+        
         if(txtName.getText().equals("") || txtGuard.getText().equals("") || txtRegNo.getText().equals("") || txtDepart.getText().equals("") || txtCnic.getText().equals("") || txtDob.getDate().equals("") || txtAddress.getText().equals("") || txtEmail.getText().equals("") || txtMobile.getText().equals("") || txtJoin.getDate().equals("") || txtLandline.getText().equals("") || txtFees.getText().equals("") || comGen.getSelectedItem().toString().equals("Select") || comNat.getSelectedItem().toString().equals("Select") || comBlood.getSelectedItem().toString().equals("Select") || comHandi.getSelectedItem().toString().equals("Select") || comShift.getSelectedItem().toString().equals("Select") || comCivil.getSelectedItem().toString().equals("Select") || comPsyco.getSelectedItem().toString().equals("Select") || comMed.getSelectedItem().toString().equals("Select") || comSem.getSelectedItem().toString().equals("Select") || comDuration.getSelectedItem().toString().equals("Select") || comDays.getSelectedItem().toString().equals("Select") || comTrack.getSelectedItem().toString().equals("Select")){
             JOptionPane.showMessageDialog(null, "All fields are mandatory");
-        } else if(rs != null){
+        } 
+        else if(rs != null){
                 JOptionPane.showMessageDialog(null, "Patient alredy exist");
-        } else{
+        } 
+        else{
             try{
                 Long mob = Long.parseLong(txtMobile.getText());
-            } catch(NumberFormatException ex){
+            } 
+            catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Please enter numeric value in mobile field");
             }
             boolean value = isEmailValid(txtEmail.getText());
             if(!value){
                 JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
-            } else{
+            }             
+            else{
                 Date d = txtDob.getDate();
                 SimpleDateFormat df = new SimpleDateFormat("dd/MMMM/yyyy");
                 String dob = df.format(d);
                 d = txtJoin.getDate();
                 String join = df.format(d);
-                boolean val = dc.addPatient(txtName.getText(), txtGuard.getText(), txtRegNo.getText(), comGen.getSelectedItem().toString(), "Student", txtDepart.getText(), comHandi.getSelectedItem().toString(), txtAddress.getText(), Long.parseLong(txtMobile.getText()), txtEmail.getText(), comBlood.getSelectedItem().toString(), txtCnic.getText(), comNat.getSelectedItem().toString(), comTrack.getSelectedItem().toString(), comPsyco.getSelectedItem().toString(), join, txtLandline.getText(), comMed.getSelectedItem().toString(), comSem.getSelectedItem().toString(), comDuration.getSelectedItem().toString(), comDays.getSelectedItem().toString(), txtFees.getText(), comShift.getSelectedItem().toString(), comCivil.getSelectedItem().toString(), null, null, null, dob);
+                boolean val = dbClass.addPatient(txtName.getText(), txtGuard.getText(), txtRegNo.getText(), comGen.getSelectedItem().toString(), "Student", txtDepart.getText(), comHandi.getSelectedItem().toString(), txtAddress.getText(), Long.parseLong(txtMobile.getText()), txtEmail.getText(), comBlood.getSelectedItem().toString(), txtCnic.getText(), comNat.getSelectedItem().toString(), comTrack.getSelectedItem().toString(), comPsyco.getSelectedItem().toString(), join, txtLandline.getText(), comMed.getSelectedItem().toString(), comSem.getSelectedItem().toString(), comDuration.getSelectedItem().toString(), comDays.getSelectedItem().toString(), txtFees.getText(), comShift.getSelectedItem().toString(), comCivil.getSelectedItem().toString(), null, null, null, dob);
                 if (val) {
                     JOptionPane.showMessageDialog(null, "Error Adding data", "Error", JOptionPane.ERROR_MESSAGE);
-                } else{
+                } 
+                else{
                     JOptionPane.showMessageDialog(null, "Successfully added");
                     this.setVisible(false);
-                    pp.setVisible(true);
+                    patientPanel.setVisible(true);
                     this.dispose();
                 } 
             }
         }
+        
     }//GEN-LAST:event_btnOkMouseClicked
 
+    // btnOkMouseClicked Mouse Event
     private void comNatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comNatActionPerformed
+        
         if(comNat.getSelectedItem().toString().trim().equals("Foreigner")){
             txtCountry.setVisible(true);
             lblCountry.setVisible(true);
-        } else{
+        } 
+        else{
             txtCountry.setVisible(false);
             lblCountry.setVisible(false);
         }
+        
     }//GEN-LAST:event_comNatActionPerformed
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

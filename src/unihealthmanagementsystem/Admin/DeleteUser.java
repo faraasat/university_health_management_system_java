@@ -4,10 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 
 public class DeleteUser extends javax.swing.JFrame {
 
+    // Objects, Variables and Instances
+    DbClass dbClass = DbClass.getInstance();
+    
+    // Constructor
     public DeleteUser() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\LoginIcoSm.png");
@@ -15,8 +19,15 @@ public class DeleteUser extends javax.swing.JFrame {
         btnDelete.setVisible(false);
     }
     
-    dbClass dc = new dbClass();
+    // Creating Instance
+    private static DeleteUser instance = null;
+    public static DeleteUser getInstance() {
+        if(instance == null)
+            instance = new DeleteUser();
+        return instance;
+    }
     
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,16 +156,22 @@ public class DeleteUser extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnBackMouseClicked Mouse Event
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        AdminPanel ap = new AdminPanel();
+        
+        AdminPanel ap = AdminPanel.getInstance();
         ap.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnBackMouseClicked
 
+    // btnDetailsMouseClicked Mouse Event
     private void btnDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailsMouseClicked
-        dc.Connect();
-        ResultSet rs = dc.findUsername(txtUser.getText(), "UserLogin");
+        
+        dbClass.Connect();
+        ResultSet rs = dbClass.findUsername(txtUser.getText(), "UserLogin");
+        
         try {
             if(rs == null){
                 JOptionPane.showMessageDialog(null, "User not found!");
@@ -164,18 +181,22 @@ public class DeleteUser extends javax.swing.JFrame {
             + "\nSalary: \t" + rs.getString(7) + "\nAddress: \t" + rs.getString(5)
             + "\nMobile: \t" + rs.getString(6));
             btnDelete.setVisible(true);
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Exception: \n" + ex, "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (NullPointerException ex) {
-        }
+        } 
+        catch (NullPointerException ex) { }
+        
     }//GEN-LAST:event_btnDetailsMouseClicked
 
+    // btnDeleteMouseClicked Mouse Event
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        
         int a = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete user?");
         switch (a) {
             case 0:
-                dc.Connect();
-                boolean val = dc.deleteUser(txtUser.getText(), "userLogin");
+                dbClass.Connect();
+                boolean val = dbClass.deleteUser(txtUser.getText(), "userLogin");
                 if(!val){
                     JOptionPane.showMessageDialog(null, "Deleted Successfully!");
                     txtDet.setText("");
@@ -190,8 +211,10 @@ public class DeleteUser extends javax.swing.JFrame {
             default:
                 break;
         }
+        
     }//GEN-LAST:event_btnDeleteMouseClicked
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

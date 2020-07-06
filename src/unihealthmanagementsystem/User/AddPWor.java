@@ -5,10 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 
 public class AddPWor extends javax.swing.JFrame {
 
+    // Variables, Methods and Instances
+    DbClass dbClass = new DbClass();
+    PatientPanel patientPanel = new PatientPanel();
+
+    // Constructor
     public AddPWor() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\AdminIcoSm.png");
@@ -17,12 +22,21 @@ public class AddPWor extends javax.swing.JFrame {
         lblOW.setVisible(false);
     }
     
-    dbClass dc = new dbClass();
-    PatientPanel pp = new PatientPanel();
+    // Creating Instance
+    private static AddPWor instance = null;
+    public static AddPWor getInstance() {
+        if(instance == null)
+            instance = new AddPWor();
+        return instance;
+    }
+    
+    // Email Validation Method
     static boolean isEmailValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }
+    
+    // Selection Method
     private String Selection(){
         String s = comWork.getSelectedItem().toString();
         if(s.equals("Sweeper") || s.equals("ShopKeeper") || s.equals("Assistant")){
@@ -33,6 +47,7 @@ public class AddPWor extends javax.swing.JFrame {
         return "";
     }
     
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -286,60 +301,79 @@ public class AddPWor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnCancelMouseClicked Mouse Click
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        dc.clearAll(this.getContentPane());
-        PatientPanel ap = new PatientPanel();
+        
+        dbClass.clearAll(this.getContentPane());
+        PatientPanel ap = PatientPanel.getInstance();
         ap.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnCancelMouseClicked
 
+    // btnOkMouseClicked Mouse Click
     private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
-        dc.Connect();
-        ResultSet rs = dc.findUsername(txtName.getText(), txtRegNo.getText() ,"patientDetails");
+       
+        dbClass.Connect();
+        ResultSet rs = dbClass.findUsername(txtName.getText(), txtRegNo.getText() ,"patientDetails");
+        
         if(txtName.getText().equals("") || txtGuard.getText().equals("") || txtRegNo.getText().equals("") || txtCnic.getText().equals("") || txtDob.getDate().equals("") || txtAddress.getText().equals("") || txtEmail.getText().equals("") || txtMobile.getText().equals("") || txtJoin.getDate().equals("") || txtLandline.getText().equals("") || comGen.getSelectedItem().toString().equals("Select") || comWork.getSelectedItem().toString().equals("Select") || comHandi.getSelectedItem().toString().equals("Select") || comShift.getSelectedItem().toString().equals("Select") || comPsyco.getSelectedItem().toString().equals("Select") || comMed.getSelectedItem().toString().equals("Select") || comTrack.getSelectedItem().toString().equals("Select") || txtSalary.getText().equals("") || comWork.getSelectedItem().toString().equals("")){
             JOptionPane.showMessageDialog(null, "All fields are mandatory");
-        } else if(rs != null){
+        } 
+        else if(rs != null){
             JOptionPane.showMessageDialog(null, "Patient alredy exist");
-        } else{
+        } 
+        else{
             try{
                 Long mob = Long.parseLong(txtMobile.getText());
-            } catch(NumberFormatException ex){
+            } 
+            catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Please enter numeric value in mobile field");
             }
+            
             boolean value = isEmailValid(txtEmail.getText());
             if(!value){
                 JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
-            } else{
+            } 
+            else{
                 Date d = txtDob.getDate();
                 SimpleDateFormat df = new SimpleDateFormat("dd/MMMM/yyyy");
                 String dob = df.format(d);
                 d = txtJoin.getDate();
                 String join = df.format(d);
                 String work = Selection();
-                boolean val = dc.addPatient(txtName.getText(), txtGuard.getText(), txtRegNo.getText(), comGen.getSelectedItem().toString(), "Worker", null, comHandi.getSelectedItem().toString(), txtAddress.getText(), Long.parseLong(txtMobile.getText()), txtEmail.getText(), comBlood1.getSelectedItem().toString(), txtCnic.getText(), "Pakistani", comTrack.getSelectedItem().toString(), comPsyco.getSelectedItem().toString(), join, txtLandline.getText(), comMed.getSelectedItem().toString(), null, null, null, null, null, null, null, txtSalary.getText(), work, dob);
+               
+                boolean val = dbClass.addPatient(txtName.getText(), txtGuard.getText(), txtRegNo.getText(), comGen.getSelectedItem().toString(), "Worker", null, comHandi.getSelectedItem().toString(), txtAddress.getText(), Long.parseLong(txtMobile.getText()), txtEmail.getText(), comBlood1.getSelectedItem().toString(), txtCnic.getText(), "Pakistani", comTrack.getSelectedItem().toString(), comPsyco.getSelectedItem().toString(), join, txtLandline.getText(), comMed.getSelectedItem().toString(), null, null, null, null, null, null, null, txtSalary.getText(), work, dob);
                 if (val) {
                     JOptionPane.showMessageDialog(null, "Error Adding data", "Error", JOptionPane.ERROR_MESSAGE);
-                } else{
+                } 
+                else{
                     JOptionPane.showMessageDialog(null, "Successfully added");
                     this.setVisible(false);
-                    pp.setVisible(true);
+                    patientPanel.setVisible(true);
                     this.dispose();
                 }
             }
         }
+        
     }//GEN-LAST:event_btnOkMouseClicked
 
+    // comWorkActionPerformed Action Event
     private void comWorkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comWorkActionPerformed
+        
         if(comWork.getSelectedItem().toString().trim().equals("Other")){
             txtOW.setVisible(true);
             lblOW.setVisible(true);
-        } else{
+        } 
+        else{
             txtOW.setVisible(false);
             lblOW.setVisible(false);
         }
+        
     }//GEN-LAST:event_comWorkActionPerformed
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

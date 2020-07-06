@@ -1,12 +1,15 @@
 package unihealthmanagementsystem.oop;
 
 public class Faculty extends Person{
+    
+    // Vatriable, Objects and Instances
     private String depart;
     private String post;
     private String salary;
     public String natio;
     private boolean isForiengnerTeacher;
 
+    // Constructor
     public Faculty(String name, String guardian, String regNo, String cnicNo, String mobile, String gender, String age, String handicap, String address, String email, String blood, String nationality, String trackRecord, String isPsycologicallyFit, String joiningDate, String landLine, String hasMedicalInsurance, String shift, String depart, String post, String salary) {
         super(name, guardian, regNo, cnicNo, mobile, gender, age, handicap, address, email, blood, "Teacher", nationality, trackRecord, isPsycologicallyFit, joiningDate, landLine, hasMedicalInsurance, shift);
         this.depart = depart;
@@ -15,6 +18,7 @@ public class Faculty extends Person{
         setNatio();
     }
 
+    // Getters and Setters
     public String getDepart() {
         return depart;
     }

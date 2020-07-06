@@ -1,18 +1,23 @@
 package unihealthmanagementsystem.Admin;
 
 import javax.swing.ImageIcon;
-import unihealthmanagementsystem.dbClass;
 
 public class AdminPanel extends javax.swing.JFrame {
 
+    // Constructor
     public AdminPanel() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\LoginIcoSm.png");
         this.setIconImage(img.getImage());
     }
     
-    dbClass db = new dbClass();
-    AddUser au = new AddUser();
+    // Creating Instance
+    private static AdminPanel instance = null;
+    public static AdminPanel getInstance() {
+        if(instance == null)
+            instance = new AdminPanel();
+        return instance;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -215,33 +220,47 @@ public class AdminPanel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // txtPp1MouseClicked Mouse Event
     private void txtPp1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPp1MouseClicked
+        
+        AddUser addUser = AddUser.getInstance();
         this.setVisible(false);
-        au.setVisible(true);
+        addUser.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_txtPp1MouseClicked
 
+    // txtPp4MouseClicked Mouse Event
     private void txtPp4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPp4MouseClicked
-        UserDetail ud = new UserDetail();
-        ud.setVisible(true);
+        
+        UserDetail userDetails = UserDetail.getInstance();
+        userDetails.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_txtPp4MouseClicked
 
+    // txtPp3MouseClicked Mouse Event
     private void txtPp3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPp3MouseClicked
-        DeleteUser du = new DeleteUser();
-        du.setVisible(true);
+        
+        DeleteUser deleteUser = DeleteUser.getInstance();
+        deleteUser.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_txtPp3MouseClicked
 
+    // txtPp2MouseClicked Mouse Event
     private void txtPp2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPp2MouseClicked
-        AddAdmin aa = new AddAdmin();
-        aa.setVisible(true);
+        
+        AddAdmin addAdmin = AddAdmin.getInstance();
+        addAdmin.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_txtPp2MouseClicked
 
+    // Main Mehtod
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

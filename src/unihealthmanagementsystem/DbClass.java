@@ -12,13 +12,22 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
-public class dbClass {
+public class DbClass {
     
+    // Variables and Objects
     private Connection conn = null;
     private Statement st = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     boolean flag = false;
+    
+    // Creating Instance
+    private static DbClass instance = null;
+    public static DbClass getInstance() {
+        if(instance == null)
+            instance = new DbClass();
+        return instance;
+    }
     
     public Connection Connect(){
         try{

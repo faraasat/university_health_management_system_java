@@ -1,6 +1,8 @@
 package unihealthmanagementsystem.oop;
 
 public class Person {
+    
+    // Vatriable, Objects and Instances
     private String name;
     private String guardian;
     private String regNo;
@@ -21,6 +23,7 @@ public class Person {
     private String trackRecord;
     private String shift;
 
+    // Constructor
     public Person(String name, String guardian, String regNo, String cnicNo, String mobile, String gender, String age, String handicap, String address, String email, String blood, String role, String nationality, String trackRecord, String isPsycologicallyFit, String joiningDate, String landLine, String hasMedicalInsurance, String shift) {
         this.name = name;
         this.mobile = mobile;
@@ -43,6 +46,7 @@ public class Person {
         this.shift = shift;
     }
 
+    // Getters and Setters
     public String getName() {
         return name;
     }

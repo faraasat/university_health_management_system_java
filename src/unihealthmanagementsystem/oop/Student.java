@@ -1,6 +1,8 @@
 package unihealthmanagementsystem.oop;
 
 public class Student extends Person{
+    
+    // Vatriable, Objects and Instances
     private String depart;
     private String isCivilian;
     private String semesters;
@@ -10,6 +12,7 @@ public class Student extends Person{
     private String natio;
     private boolean isForiengnerStudent;
 
+    // Constructor
     public Student(String name, String guardian, String regNo, String cnicNo, String mobile, String gender, String age, String handicap, String address, String email, String blood, String nationality, String trackRecord, String isPsycologicallyFit, String shift, String joiningDate, String landLine, String hasMedicalInsurance, String depart, String isCivilian, String semesters, String semesterDuration, String days, String semFee) {
         super(name, guardian, regNo, cnicNo, mobile, gender, age, handicap, address, email, blood, "Student", nationality, trackRecord, isPsycologicallyFit, joiningDate, landLine, hasMedicalInsurance, shift);
         this.depart = depart;
@@ -22,6 +25,7 @@ public class Student extends Person{
         setNatio();
     }
 
+    // Getters and Setters
     public String getDepart() {
         return depart;
     }
@@ -75,4 +79,5 @@ public class Student extends Person{
             isForiengnerStudent = true;
         }
     }
+    
 }

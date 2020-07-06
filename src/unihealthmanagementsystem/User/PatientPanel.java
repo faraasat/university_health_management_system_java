@@ -4,12 +4,22 @@ import javax.swing.ImageIcon;
 
 public class PatientPanel extends javax.swing.JFrame {
 
+    // Constructor
     public PatientPanel() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\AdminIcoSm.png");
         this.setIconImage(img.getImage());
     }
+    
+    // Creating Instance
+    private static PatientPanel instance = null;
+    public static PatientPanel getInstance() {
+        if(instance == null)
+            instance = new PatientPanel();
+        return instance;
+    }
 
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -177,27 +187,37 @@ public class PatientPanel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // txtPp1MouseClicked Mouse Event
     private void txtPp1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPp1MouseClicked
-        AddPatient ap = new AddPatient();
-        ap.setVisible(true);
+        
+        AddPatient addPatient = AddPatient.getInstance();
+        addPatient.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_txtPp1MouseClicked
 
+    // txtPp4MouseClicked Mouse Event
     private void txtPp4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPp4MouseClicked
-        DiagnosticDetails dd = new DiagnosticDetails();
-        dd.setVisible(true);
+        
+        DiagnosticDetails diagnosticDetails = DiagnosticDetails.getInstance();
+        diagnosticDetails.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_txtPp4MouseClicked
 
+    // txtPp3MouseClicked Mouse Event
     private void txtPp3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPp3MouseClicked
-        DiagnosisSystem ds = new DiagnosisSystem();
-        ds.setVisible(true);
+        
+        DiagnosisSystem diagnosisSystem = DiagnosisSystem.getInstance();
+        diagnosisSystem.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_txtPp3MouseClicked
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

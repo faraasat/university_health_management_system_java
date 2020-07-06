@@ -4,12 +4,22 @@ import javax.swing.ImageIcon;
 
 public class ShowResults extends javax.swing.JFrame {
 
+    // Constructor
     public ShowResults() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\AdminIcoSm.png");
         this.setIconImage(img.getImage());
     }
     
+    // Creating Instance
+    private static ShowResults instance = null;
+    public static ShowResults getInstance() {
+        if(instance == null)
+            instance = new ShowResults();
+        return instance;
+    }
+    
+    // stuSplitter Method
     public void stuSplitter(String str){
         this.setVisible(true);
         String phy = str.split("\t")[0];
@@ -19,11 +29,14 @@ public class ShowResults extends javax.swing.JFrame {
         String b="",c="",d="",e="";
         if(a.split("-")[0] != null){
             b = a.split("-")[0]; 
-        } if(a.split("-")[1] != null){
+        } 
+        if(a.split("-")[1] != null){
             c = a.split("-")[1]; 
-        } if(a.split("-")[2] != null){
+        } 
+        if(a.split("-")[2] != null){
             d = a.split("-")[2]; 
-        } if(a.split("-")[3] != null){
+        } 
+        if(a.split("-")[3] != null){
             e = a.split("-")[3]; 
         }
         txtPhy.setText("  Physician Id: " + phy.split(";")[1] + "\tPhysician Name: " + phy.split(";")[2] + "\tPhysician Email: " + phy.split(";")[3] + "\n\n\tPhysician Address: " + phy.split(";")[4] + "\tPhysician Address: " + phy.split(";")[5]);
@@ -31,6 +44,7 @@ public class ShowResults extends javax.swing.JFrame {
         txtDia.setText("\tDiagnostic Id: " + dia.split(";")[0] + "\tCondition: " + dia.split(";")[1] + "\tDiseases: " + dia.split(";")[3] + "\n\n  \tFever: " + dia.split(";")[2] + "\t" + dia.split(";")[6] + "\tDate: " + dia.split(";")[7] + "\n\n\tSuggestions: " + dia.split(";")[4] + "\n\n\tMedications: " + b + "\n\t\t      " + c + "\n\t\t      " + d + "\n\t\t      " + e);
     }
     
+    // FacSplitter Method
     public void FacSplitter(String str){
         this.setVisible(true);
         String phy = str.split("\t")[0];
@@ -40,11 +54,14 @@ public class ShowResults extends javax.swing.JFrame {
         String b="",c="",d="",e="";
         if(a.split("-")[0] != null){
             b = a.split("-")[0]; 
-        } if(a.split("-")[1] != null){
+        } 
+        if(a.split("-")[1] != null){
             c = a.split("-")[1]; 
-        } if(a.split("-")[2] != null){
+        } 
+        if(a.split("-")[2] != null){
             d = a.split("-")[2]; 
-        } if(a.split("-")[3] != null){
+        } 
+        if(a.split("-")[3] != null){
             e = a.split("-")[3]; 
         }
         txtPhy.setText("  Physician Id: " + phy.split(";")[1] + "\tPhysician Name: " + phy.split(";")[2] + "\tPhysician Email: " + phy.split(";")[3] + "\n\n\tPhysician Address: " + phy.split(";")[4] + "\tPhysician Address: " + phy.split(";")[5]);
@@ -52,6 +69,7 @@ public class ShowResults extends javax.swing.JFrame {
         txtDia.setText("\tDiagnostic Id: " + dia.split(";")[0] + "\tCondition: " + dia.split(";")[1] + "\tDiseases: " + dia.split(";")[3] + "\n\n  \tFever: " + dia.split(";")[2] + "\t" + dia.split(";")[6] + "\tDate: " + dia.split(";")[7] + "\n\n\tSuggestions: " + dia.split(";")[4] + "\n\n\tMedications: " + b + "\n\t\t      " + c + "\n\t\t      " + d + "\n\t\t      " + e);
     }
     
+    // WorSplitter Method
     public void WorSplitter(String str){
         this.setVisible(true);
         String phy = str.split("\t")[0];
@@ -61,11 +79,14 @@ public class ShowResults extends javax.swing.JFrame {
         String b="",c="",d="",e="";
         if(a.split("-")[0] != null){
             b = a.split("-")[0]; 
-        } if(a.split("-")[1] != null){
+        } 
+        if(a.split("-")[1] != null){
             c = a.split("-")[1]; 
-        } if(a.split("-")[2] != null){
+        } 
+        if(a.split("-")[2] != null){
             d = a.split("-")[2]; 
-        } if(a.split("-")[3] != null){
+        } 
+        if(a.split("-")[3] != null){
             e = a.split("-")[3]; 
         }
         txtPhy.setText("  Physician Id: " + phy.split(";")[1] + "\tPhysician Name: " + phy.split(";")[2] + "\tPhysician Email: " + phy.split(";")[3] + "\n\n\tPhysician Address: " + phy.split(";")[4] + "\tPhysician Address: " + phy.split(";")[5]);
@@ -73,6 +94,7 @@ public class ShowResults extends javax.swing.JFrame {
         txtDia.setText("\tDiagnostic Id: " + dia.split(";")[0] + "\tCondition: " + dia.split(";")[1] + "\tDiseases: " + dia.split(";")[3] + "\n\n  \tFever: " + dia.split(";")[2] + "\t" + dia.split(";")[6] + "\tDate: " + dia.split(";")[7] + "\n\n\tSuggestions: " + dia.split(";")[4] + "\n\n\tMedications: " + b + "\n\t\t      " + c + "\n\t\t      " + d + "\n\t\t      " + e);
     }
     
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -183,11 +205,13 @@ public class ShowResults extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnBackMouseClicked Mouse Event
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnBackMouseClicked
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

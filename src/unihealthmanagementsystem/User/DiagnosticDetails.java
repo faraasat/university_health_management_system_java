@@ -7,11 +7,15 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 import unihealthmanagementsystem.oop.UniDReader;
 
 public class DiagnosticDetails extends javax.swing.JFrame {
     
+    // Objects, Variables and Instances
+    DbClass dbClass = DbClass.getInstance();
+    
+    // Constructor
     public DiagnosticDetails() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\AdminIcoSm.png");
@@ -19,14 +23,22 @@ public class DiagnosticDetails extends javax.swing.JFrame {
         fetchData();
     }
     
-    dbClass dc = new dbClass();
+    // Creating Instance
+    private static DiagnosticDetails instance = null;
+    public static DiagnosticDetails getInstance() {
+        if(instance == null)
+            instance = new DiagnosticDetails();
+        return instance;
+    }
     
+    // fetchData Method
     public void fetchData(){
-        dc.Connect();
-        ResultSet rs = dc.getDiaDetails();
+        dbClass.Connect();
+        ResultSet rs = dbClass.getDiaDetails();
         tblShow.setModel(DbUtils.resultSetToTableModel(rs));
     }
 
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,6 +60,7 @@ public class DiagnosticDetails extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane1.setToolTipText("Click to View Details");
 
         tblShow.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,57 +136,70 @@ public class DiagnosticDetails extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnBackMouseClicked Mouse Event
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        Login lg = new Login();
-        lg.setVisible(true);
+       
+        Login login = Login.getInstance();
+        login.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnBackMouseClicked
 
+    // btnSearchMouseClicked Mouse Event
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        
         try{
             if(txtSearch.getText().equals("")){
                 fetchData();
-            } else{
-                dc.Connect();
-                ResultSet res = dc.getDiaDetails(txtSearch.getText(), txtSearch.getText());
+            } 
+            else{
+                dbClass.Connect();
+                ResultSet res = dbClass.getDiaDetails(txtSearch.getText(), txtSearch.getText());
                 if(res != null){
                     DefaultTableModel model = (DefaultTableModel)this.tblShow.getModel();
                     model.setRowCount(0);
                     tblShow.setModel(DbUtils.resultSetToTableModel(res));
-                } else if(res == null){
+                } 
+                else if(res == null){
                     JOptionPane.showMessageDialog(null, "User not found");
                     fetchData();
                 }
             } 
-        } catch(HeadlessException ex){ 
+        } 
+        catch(HeadlessException ex){ 
            JOptionPane.showMessageDialog(null, ex);
         }
+        
     }//GEN-LAST:event_btnSearchMouseClicked
 
+    // tblShowMouseClicked Mouse Event
     private void tblShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblShowMouseClicked
+        
         int index = tblShow.getSelectedRow();
         TableModel model = tblShow.getModel();
         String val1 = (String) model.getValueAt(index, 2);
         String val2 = (String) model.getValueAt(index, 9);
-        UniDReader un = new UniDReader();
-        String st = un.Read(val1, val2);
-        ShowResults sr = new ShowResults();
+        UniDReader uniReader = UniDReader.getInstance();
+        String st = uniReader.Read(val1, val2);
+        ShowResults showResults = ShowResults.getInstance();
         switch (val2) {
             case "Student":
-                sr.stuSplitter(st);
+                showResults.stuSplitter(st);
                 break;
             case "Faculty":
-                sr.FacSplitter(st);
+                showResults.FacSplitter(st);
                 break;
             case "Worker":
-                sr.WorSplitter(st);
+                showResults.WorSplitter(st);
                 break;
             default:
                 break;
         }
+        
     }//GEN-LAST:event_tblShowMouseClicked
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

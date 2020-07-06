@@ -3,6 +3,8 @@ package unihealthmanagementsystem.oop;
 import java.util.ArrayList;
 
 public class DiseaseFinder {
+    
+    // Vatriable, Objects and Instances
     private String condition;
     private String temperature;
     private ArrayList a = new ArrayList();
@@ -10,12 +12,14 @@ public class DiseaseFinder {
     private int t = 0;
     private String s;
 
+    // Constructor
     public DiseaseFinder(String condition, String temperature, ArrayList disease) {
         this.condition = condition;
         this.temperature = temperature;
         this.a = disease;
     }
 
+    // Getters and Setters
     public String getCondition() {
         return condition;
     }
@@ -40,6 +44,7 @@ public class DiseaseFinder {
         this.a = disease;
     }
     
+    // diagnosticResult Method
     public String diagnoseResult(){
         switch (condition) {
             case "Normal":
@@ -56,24 +61,31 @@ public class DiseaseFinder {
                 break;
             default:
                 break;
-        } if(Double.parseDouble(temperature) > 98.2){
+        } 
+        if(Double.parseDouble(temperature) > 98.2){
             if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace") && a.get(1).equals("Fever") || a.get(1).equals("Flu") || a.get(1).equals("Headace") && a.get(2).equals("Fever") || a.get(2).equals("Flu") || a.get(2).equals("Headace")){
                 s = "Your diagnosed disease is viral Influenza\nMedicine for you are  \n  -1) Panadol x" + num + " " + t + " times \n  -2) Hydrilin Syrup x" + num + " " + t + " times \n  -3) Calpol Syrup x" + num + " " + t + " times";
-            } else if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace") && a.get(1).equals("Fever") || a.get(1).equals("Flu") || a.get(1).equals("Headace")){
+            } 
+            else if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace") && a.get(1).equals("Fever") || a.get(1).equals("Flu") || a.get(1).equals("Headace")){
                 s = "Your diagnosed disease is Food Poisoning\nMedicine for you are\n  -1) Panadol x" + num + " " + t + " times \n  2) Ledger Plex Syrup x" + num + " " + t + " times \n  -3) Calpol Syrup x" + num + " " + t + " times";
-            } else if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace")){
+            } 
+            else if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace")){
                 s = "Your diagnosed problem is Workload and less sleep\nMedicine for you are  \n  -1) Panadol x" + num + " " + t + " times \n  -2) Hydrilin Syrup x" + num + " " + t + " times \n  -3) Calpol Syrup x" + num + " " + t + " times";
             }
             return s;
-        } else {
+        } 
+        else {
             if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace") && a.get(1).equals("Fever") || a.get(1).equals("Flu") || a.get(1).equals("Headace") && a.get(2).equals("Fever") || a.get(2).equals("Flu") || a.get(2).equals("Headace")){
                 s = "Your diagnosed disease is viral Influenza\nMedicine for you are \n  -1) Panadol x" + num + " " + t + " times \n  -2) Hydrilin Syrup x" + num + " " + t + " times";
-            } else if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace") && a.get(1).equals("Fever") || a.get(1).equals("Flu") || a.get(1).equals("Headace")){
+            } 
+            else if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace") && a.get(1).equals("Fever") || a.get(1).equals("Flu") || a.get(1).equals("Headace")){
                 s = "Your diagnosed disease is Food Poisoning\nMedicine for you are \n  -1) Panadol x" + num + " " + t + " times \n  -2) Ledger Plex Syrup x" + num + " " + t + " times";
-            } else if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace")){
+            } 
+            else if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace")){
                 s = "Your diagnosed problem is Workload and less sleep\nMedicine for you are \n  -1) Panadol x" + num + " " + t + " times";
             }
             return s;
         }
     }
+    
 }

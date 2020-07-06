@@ -3,22 +3,35 @@ package unihealthmanagementsystem.Admin;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 
 public class AddUser extends javax.swing.JFrame {
 
+    // Objects, instances and Variables
+    DbClass dbClass = DbClass.getInstance();
+    
+    // Constructor
     public AddUser() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\LoginIcoSm.png");
         this.setIconImage(img.getImage());
     }
     
-    dbClass dc = new dbClass();
+    // Creating Instance
+    private static AddUser instance = null;
+    public static AddUser getInstance() {
+        if(instance == null)
+            instance = new AddUser();
+        return instance;
+    }
+    
+    // Email Validation Method
     static boolean isEmailValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }
     
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -170,50 +183,64 @@ public class AddUser extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnCancelMouseClicked Mouse Event
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        AdminPanel ap = new AdminPanel();
+        
+        AdminPanel ap = AdminPanel.getInstance();
         ap.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnCancelMouseClicked
 
+    // btnOkMouseClicked Mouse Event
     private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
-        AdminPanel ap = new AdminPanel();
-        dc.Connect();
-        double sal = 0;
-        long mob = 0;
-        ResultSet rs = dc.findUsername(txtName.getText(), "userLogin");
+        
+        double sal;
+        long mob;
+        dbClass.Connect();        
+        ResultSet rs = dbClass.findUsername(txtName.getText(), "userLogin");
+        
         if(txtName.getText().equals("") || txtPass.getText().equals("") || txtConfPass.getText().equals("") || txtEmail.getText().equals("") || txtAdd.getText().equals("") || txtSal.getText().equals("") || txtMobile.getText().equals("")){
             JOptionPane.showMessageDialog(null, "All fields are mandatory");
-        } else if(rs != null){
+        } 
+        else if(rs != null){
                 JOptionPane.showMessageDialog(null, "User alredy exist");
-        } else if(!txtPass.getText().equals(txtConfPass.getText())){
+        } 
+        else if(!txtPass.getText().equals(txtConfPass.getText())){
             JOptionPane.showMessageDialog(null, "Password does not match");
-        } else if(txtName.getText() != ""){
+        } 
+        else if(txtName.getText() != ""){
             try{
                 sal = Double.parseDouble(txtSal.getText());
                 mob = Long.parseLong(txtMobile.getText());
-            } catch(NumberFormatException ex){
+            } 
+            catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Please Do not enter strings in decimal fields");
                 return;
             }
             boolean value = isEmailValid(txtEmail.getText());
             if(!value){
                 JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
-            } else{
-                boolean val = dc.addUser(txtName.getText(), txtPass.getText(), txtEmail.getText(), sal, txtAdd.getText(), mob);
+            }
+            else{
+                boolean val = dbClass.addUser(txtName.getText(), txtPass.getText(), txtEmail.getText(), sal, txtAdd.getText(), mob);
                 if (val) {
                     JOptionPane.showMessageDialog(null, "Error Adding data", "Error", JOptionPane.ERROR_MESSAGE);
-                } else{
+                } 
+                else{
+                    AdminPanel adminPanel = AdminPanel.getInstance();
                     JOptionPane.showMessageDialog(null, "Successfully added");
                     this.setVisible(false);
-                    ap.setVisible(true);
+                    adminPanel.setVisible(true);
                     this.dispose();
                 } 
             }
         } 
+        
     }//GEN-LAST:event_btnOkMouseClicked
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

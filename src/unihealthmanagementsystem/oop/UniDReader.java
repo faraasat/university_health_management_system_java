@@ -6,6 +6,15 @@ import java.io.IOException;
 
 public class UniDReader {
     
+    // Creating Instance
+    private static UniDReader instance = null;
+    public static UniDReader getInstance() {
+        if(instance == null)
+            instance = new UniDReader();
+        return instance;
+    }
+    
+    // Read Method
     public String Read(String dId, String file) {
         try {
             BufferedReader myReader = new BufferedReader(
@@ -24,4 +33,5 @@ public class UniDReader {
         }
         return null;
     }
+    
 }

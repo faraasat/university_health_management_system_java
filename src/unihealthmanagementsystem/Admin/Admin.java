@@ -7,18 +7,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 
-public class Admin extends javax.swing.JFrame {
- 
+public class Admin extends javax.swing.JFrame {  
+    
+    // Objects, Variable and Instances
+    DbClass db = DbClass.getInstance();
+    AdminPanel adminPanel = AdminPanel.getInstance();
+    
+    // Constructor
     public Admin() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\LoginIcoSm.png");
         this.setIconImage(img.getImage());
     }
     
-    dbClass db = new dbClass();
+    // Creating Instance
+    private static Admin instance = null;
+    public static Admin getInstance() {
+        if(instance == null)
+            instance = new Admin();
+        return instance;
+    }
 
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -113,40 +125,54 @@ public class Admin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnAdminModeActionPerformed Action Event
     private void btnAdminModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminModeActionPerformed
-        Login login = new Login();
+        
+        Login login = Login.getInstance();
         login.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnAdminModeActionPerformed
 
+    // BtnOkActionPerformed Action Event
     private void BtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnOkActionPerformed
         try {
+            
             db.Connect();
             ResultSet rs = db.findUsername(txtUser.getText(), "adminLogin");
+            
             if(txtUser.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Please enter the username");
-            } else if(rs == null){
+            } 
+            else if(rs == null){
                 JOptionPane.showMessageDialog(null, "User not Found", "Error", JOptionPane.ERROR_MESSAGE);                
-            } else if(passPass.getText().equals("")){
+            } 
+            else if(passPass.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Please Enter Password");
-            } else if(rs.getString(3).equals(passPass.getText())) {
-                AdminPanel au = new AdminPanel();
-                au.setVisible(true);
+            } 
+            else if(rs.getString(3).equals(passPass.getText())) {
+                adminPanel.setVisible(true);
                 this.setVisible(false);
                 this.dispose();
-            } else {
+            } 
+            else {
                 JOptionPane.showMessageDialog(null, "Password Incorrect", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (HeadlessException | SQLException ex) {
+        } 
+        catch (HeadlessException | SQLException ex) {
             System.out.println(ex);
         }
     }//GEN-LAST:event_BtnOkActionPerformed
 
+    // btnCancelActionPerformed Action Event
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        
         exit(0);
+        
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

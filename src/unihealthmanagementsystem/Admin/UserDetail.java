@@ -7,25 +7,38 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
-import unihealthmanagementsystem.dbClass;
+import unihealthmanagementsystem.DbClass;
 
 public class UserDetail extends javax.swing.JFrame {
 
+    // Objects, Instances and Variables
+    DbClass dbClass = DbClass.getInstance();
+    
+    // Constructor
     public UserDetail() {
         initComponents();
         ImageIcon img = new ImageIcon("src\\icon\\LoginIcoSm.png");
         this.setIconImage(img.getImage());
         fetchData();
+        tblUser.setDefaultEditor(Object.class, null);
     }
     
-    dbClass dc = new dbClass();
+    // Creating Instance
+    private static UserDetail instance = null;
+    public static UserDetail getInstance() {
+        if(instance == null)
+            instance = new UserDetail();
+        return instance;
+    }
     
-    public void fetchData(){
-        dc.Connect();
-        ResultSet rs = dc.userDetails();
+    // fetchData Method
+    private void fetchData(){
+        dbClass.Connect();
+        ResultSet rs = dbClass.userDetails();
         tblUser.setModel(DbUtils.resultSetToTableModel(rs));
     }
 
+    // Swing Generated Code
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -116,36 +129,46 @@ public class UserDetail extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // btnBackMouseClicked Mouse Event
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        AdminPanel ap = new AdminPanel();
-        ap.setVisible(true);
+        
+        AdminPanel adminPanel = AdminPanel.getInstance();
+        adminPanel.setVisible(true);
         this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnBackMouseClicked
 
+    // btnSearchMouseClicked Mouse Event
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        
         try{
             if(txtSearch.getText().equals("")){
                 fetchData();
-            } else{
-                dc.Connect();
-                ResultSet res = dc.SearchName(txtSearch.getText(), "userLogin");
+            } 
+            else{
+                dbClass.Connect();
+                ResultSet res = dbClass.SearchName(txtSearch.getText(), "userLogin");
                 if(res != null){
                     DefaultTableModel model = (DefaultTableModel)this.tblUser.getModel();
                     model.setRowCount(0);
                     model.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3), res.getString(4),
                     res.getString(6), res.getString(7), res.getString(5)});    
-                }else if(res == null){
+                }
+                else if(res == null){
                     System.out.println("");
                     JOptionPane.showMessageDialog(null, "User not found");
                     fetchData();
                 } 
             } 
-        } catch(HeadlessException | SQLException ex){ 
+        } 
+        catch(HeadlessException | SQLException ex){ 
            JOptionPane.showMessageDialog(null, ex);
         }
+        
     }//GEN-LAST:event_btnSearchMouseClicked
 
+    // Main Method
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
