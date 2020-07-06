@@ -9,6 +9,7 @@ public class LoadingWindow extends javax.swing.JFrame {
     public LoadingWindow() throws InterruptedException {
         initComponents();
     }
+    
 
     // Swing Generated Code
     @SuppressWarnings("unchecked")
