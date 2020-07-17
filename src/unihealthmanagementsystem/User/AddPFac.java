@@ -213,6 +213,7 @@ public class AddPFac extends javax.swing.JFrame {
         lblCountry.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         lblCountry.setText("Enter Country:");
 
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cross.png"))); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -220,6 +221,7 @@ public class AddPFac extends javax.swing.JFrame {
             }
         });
 
+        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/plus.png"))); // NOI18N
         btnOk.setText("Add");
         btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -496,8 +498,8 @@ public class AddPFac extends javax.swing.JFrame {
     // btnCancelMouseClicked Mouse Event
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
         
-        PatientPanel patientPanel1 = PatientPanel.getInstance();
-        patientPanel1.setVisible(true);
+        AddPatient addPatient = AddPatient.getInstance();
+        addPatient.setVisible(true);
         this.setVisible(false);
         this.dispose();
         
@@ -525,7 +527,9 @@ public class AddPFac extends javax.swing.JFrame {
             boolean value = isEmailValid(txtEmail.getText());
             if(!value){
                 JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
-            } 
+            } else if(txtMobile.getText().length() != 10){
+                JOptionPane.showMessageDialog(null, "Please check entered mobile No. 10 digits are required");
+            }
             else{
                 Date d = txtDob.getDate();
                 SimpleDateFormat df = new SimpleDateFormat("dd/MMMM/yyyy");
@@ -533,7 +537,7 @@ public class AddPFac extends javax.swing.JFrame {
                 d = txtJoin.getDate();
                 String join = df.format(d);
                 String post = Selection();
-                boolean val = dbClass.addPatient(txtName.getText(), txtGuard.getText(), txtRegNo.getText(), comGen.getSelectedItem().toString(), "Faculty", txtDepart.getText(), comHandi.getSelectedItem().toString(), txtAddress.getText(), Long.parseLong(txtMobile.getText()), txtEmail.getText(), comBlood1.getSelectedItem().toString(), txtCnic.getText(), comNat.getSelectedItem().toString(), comTrack.getSelectedItem().toString(), comPsyco.getSelectedItem().toString(), join, txtLandline.getText(), comMed.getSelectedItem().toString(), null, null, null, null, null, null, post, txtSalary.getText(), null, dob);
+                boolean val = dbClass.addPatient(txtName.getText(), txtGuard.getText(), txtRegNo.getText(), comGen.getSelectedItem().toString(), "Faculty", txtDepart.getText(), comHandi.getSelectedItem().toString(), txtAddress.getText(), Long.parseLong(txtMobile.getText()), txtEmail.getText(), comBlood1.getSelectedItem().toString(), txtCnic.getText(), comNat.getSelectedItem().toString(), comTrack.getSelectedItem().toString(), comPsyco.getSelectedItem().toString(), join, txtLandline.getText(), comMed.getSelectedItem().toString(), null, null, null, null, comShift.getSelectedItem().toString(), null, post, txtSalary.getText(), null, dob);
                 if (val) {
                     JOptionPane.showMessageDialog(null, "Error Adding data", "Error", JOptionPane.ERROR_MESSAGE);
                 } else{

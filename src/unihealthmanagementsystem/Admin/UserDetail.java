@@ -109,6 +109,7 @@ public class UserDetail extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(540, 60, 220, 40);
 
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/backIco.png"))); // NOI18N
         btnBack.setText("Back");
         btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -116,7 +117,7 @@ public class UserDetail extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnBack);
-        btnBack.setBounds(50, 60, 90, 40);
+        btnBack.setBounds(50, 60, 100, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 840, 110);
@@ -135,6 +136,7 @@ public class UserDetail extends javax.swing.JFrame {
         AdminPanel adminPanel = AdminPanel.getInstance();
         adminPanel.setVisible(true);
         this.setVisible(false);
+        txtSearch.setText("");
         this.dispose();
         
     }//GEN-LAST:event_btnBackMouseClicked

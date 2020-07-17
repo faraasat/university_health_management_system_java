@@ -1,16 +1,9 @@
 package unihealthmanagementsystem;
 
-import com.toedter.calendar.JDateChooser;
-import java.awt.Component;
-import java.awt.Container;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import java.util.Date;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
 public class DbClass {
     
@@ -281,18 +274,5 @@ public class DbClass {
         }
         return null;
     }
-    
-    public void clearAll(Container aContainer) {
-        for(Component c:aContainer.getComponents()) {
-            if(c instanceof JTextField || c instanceof JTextArea){
-                ((JTextComponent) c).setText("");
-            }else if(c instanceof JRadioButton){
-                ((JRadioButton) c).setSelected(false);
-            }else if(c instanceof JDateChooser){
-                 ((JDateChooser) c).setDate(null);
-            }else if (c instanceof Container) {
-                 clearAll((Container) c);
-            }
-        }
-    }   
+     
 }

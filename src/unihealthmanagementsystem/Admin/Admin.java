@@ -154,6 +154,8 @@ public class Admin extends javax.swing.JFrame {
             else if(rs.getString(3).equals(passPass.getText())) {
                 adminPanel.setVisible(true);
                 this.setVisible(false);
+                txtUser.setText("");
+                passPass.setText("");
                 this.dispose();
             } 
             else {

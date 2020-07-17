@@ -120,6 +120,7 @@ public class AddPWor extends javax.swing.JFrame {
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 170, 31));
         jPanel1.add(txtGuard, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 40, 210, 31));
 
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cross.png"))); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -128,7 +129,8 @@ public class AddPWor extends javax.swing.JFrame {
         });
         jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 740, 140, 40));
 
-        btnOk.setText("Proceed");
+        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/plus.png"))); // NOI18N
+        btnOk.setText("Add");
         btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnOkMouseClicked(evt);
@@ -304,9 +306,8 @@ public class AddPWor extends javax.swing.JFrame {
     // btnCancelMouseClicked Mouse Click
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
         
-        dbClass.clearAll(this.getContentPane());
-        PatientPanel ap = PatientPanel.getInstance();
-        ap.setVisible(true);
+        AddPatient addPatient = AddPatient.getInstance();
+        addPatient.setVisible(true);
         this.setVisible(false);
         this.dispose();
         
@@ -335,7 +336,9 @@ public class AddPWor extends javax.swing.JFrame {
             boolean value = isEmailValid(txtEmail.getText());
             if(!value){
                 JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
-            } 
+            } else if(txtMobile.getText().length() != 10){
+                JOptionPane.showMessageDialog(null, "Please check entered mobile No. 10 digits are required");
+            }
             else{
                 Date d = txtDob.getDate();
                 SimpleDateFormat df = new SimpleDateFormat("dd/MMMM/yyyy");
@@ -344,7 +347,7 @@ public class AddPWor extends javax.swing.JFrame {
                 String join = df.format(d);
                 String work = Selection();
                
-                boolean val = dbClass.addPatient(txtName.getText(), txtGuard.getText(), txtRegNo.getText(), comGen.getSelectedItem().toString(), "Worker", null, comHandi.getSelectedItem().toString(), txtAddress.getText(), Long.parseLong(txtMobile.getText()), txtEmail.getText(), comBlood1.getSelectedItem().toString(), txtCnic.getText(), "Pakistani", comTrack.getSelectedItem().toString(), comPsyco.getSelectedItem().toString(), join, txtLandline.getText(), comMed.getSelectedItem().toString(), null, null, null, null, null, null, null, txtSalary.getText(), work, dob);
+                boolean val = dbClass.addPatient(txtName.getText(), txtGuard.getText(), txtRegNo.getText(), comGen.getSelectedItem().toString(), "Worker", null, comHandi.getSelectedItem().toString(), txtAddress.getText(), Long.parseLong(txtMobile.getText()), txtEmail.getText(), comBlood1.getSelectedItem().toString(), txtCnic.getText(), "Pakistani", comTrack.getSelectedItem().toString(), comPsyco.getSelectedItem().toString(), join, txtLandline.getText(), comMed.getSelectedItem().toString(), null, null, null, null, comShift.getSelectedItem().toString(), null, null, txtSalary.getText(), work, dob);
                 if (val) {
                     JOptionPane.showMessageDialog(null, "Error Adding data", "Error", JOptionPane.ERROR_MESSAGE);
                 } 

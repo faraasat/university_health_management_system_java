@@ -31,18 +31,20 @@ public class PatientPanel extends javax.swing.JFrame {
         txtPp1 = new javax.swing.JLabel();
         pp3 = new javax.swing.JPanel();
         txtPp3 = new javax.swing.JLabel();
+        btnBack2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Patient Panel");
-        setMinimumSize(new java.awt.Dimension(380, 380));
+        setMinimumSize(new java.awt.Dimension(390, 450));
         getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(204,255,255,100));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel2.setForeground(new java.awt.Color(51, 255, 204));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pp4.setBackground(new java.awt.Color(204, 255, 204));
         pp4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -72,6 +74,8 @@ public class PatientPanel extends javax.swing.JFrame {
             .addComponent(txtPp4, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
 
+        jPanel2.add(pp4, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 185, -1, -1));
+
         pp1.setBackground(new java.awt.Color(204, 255, 204));
         pp1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pp1.setForeground(new java.awt.Color(102, 0, 255));
@@ -99,6 +103,8 @@ public class PatientPanel extends javax.swing.JFrame {
             pp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtPp1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
+
+        jPanel2.add(pp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 37, 329, -1));
 
         pp3.setBackground(new java.awt.Color(204, 255, 204));
         pp3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -128,29 +134,18 @@ public class PatientPanel extends javax.swing.JFrame {
             .addComponent(txtPp3, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pp4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pp1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pp3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(pp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(pp4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
-        );
+        jPanel2.add(pp3, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 107, 329, -1));
+
+        btnBack2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnBack2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout.png"))); // NOI18N
+        btnBack2.setText("Logout");
+        btnBack2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBack2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBack2MouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnBack2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 250, 50));
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(-10, 70, 410, 410);
@@ -217,6 +212,15 @@ public class PatientPanel extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtPp3MouseClicked
 
+    private void btnBack2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBack2MouseClicked
+
+        Login login = Login.getInstance();
+        login.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+
+    }//GEN-LAST:event_btnBack2MouseClicked
+
     // Main Method
     public static void main(String args[]) {
         try {
@@ -235,6 +239,7 @@ public class PatientPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

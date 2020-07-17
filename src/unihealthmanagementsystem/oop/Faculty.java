@@ -6,8 +6,6 @@ public class Faculty extends Person{
     private String depart;
     private String post;
     private String salary;
-    public String natio;
-    private boolean isForiengnerTeacher;
 
     // Constructor
     public Faculty(String name, String guardian, String regNo, String cnicNo, String mobile, String gender, String age, String handicap, String address, String email, String blood, String nationality, String trackRecord, String isPsycologicallyFit, String joiningDate, String landLine, String hasMedicalInsurance, String shift, String depart, String post, String salary) {
@@ -15,7 +13,6 @@ public class Faculty extends Person{
         this.depart = depart;
         this.post = post;
         this.salary = salary;
-        setNatio();
     }
 
     // Getters and Setters
@@ -41,12 +38,6 @@ public class Faculty extends Person{
 
     public void setSalary(String salary) {
         this.salary = salary;
-    }
-    
-    private void setNatio(){
-        if(!natio.equals("Pakistani")){
-            isForiengnerTeacher = true;
-        }
     }
     
 }

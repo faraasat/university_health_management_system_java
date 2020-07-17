@@ -156,6 +156,8 @@ public class Login extends javax.swing.JFrame{
                 PatientPanel patientPanel = PatientPanel.getInstance();
                 patientPanel.setVisible(true);
                 this.setVisible(false);
+                txtUser.setText("");
+                passPass.setText("");
                 this.dispose();
                 DiagnosisSystem.setNameFor(hello);
             } 

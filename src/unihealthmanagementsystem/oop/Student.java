@@ -9,8 +9,6 @@ public class Student extends Person{
     private String semesterDuration;
     private String days;
     private String semFee;
-    private String natio;
-    private boolean isForiengnerStudent;
 
     // Constructor
     public Student(String name, String guardian, String regNo, String cnicNo, String mobile, String gender, String age, String handicap, String address, String email, String blood, String nationality, String trackRecord, String isPsycologicallyFit, String shift, String joiningDate, String landLine, String hasMedicalInsurance, String depart, String isCivilian, String semesters, String semesterDuration, String days, String semFee) {
@@ -21,8 +19,6 @@ public class Student extends Person{
         this.semesterDuration = semesterDuration;
         this.days = days;
         this.semFee = semFee;
-        this.natio = nationality;
-        setNatio();
     }
 
     // Getters and Setters
@@ -72,12 +68,6 @@ public class Student extends Person{
 
     public void setSemFee(String semFee) {
         this.semFee = semFee;
-    }
-
-    private void setNatio(){
-        if(!natio.equals("Pakistani")){
-            isForiengnerStudent = true;
-        }
     }
     
 }

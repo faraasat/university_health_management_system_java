@@ -73,6 +73,7 @@ public class AddAdmin extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(20, 150, 140, 30);
 
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/plus.png"))); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -82,6 +83,7 @@ public class AddAdmin extends javax.swing.JFrame {
         getContentPane().add(btnAdd);
         btnAdd.setBounds(240, 260, 90, 40);
 
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/backIco.png"))); // NOI18N
         btnBack.setText("Back");
         btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -127,6 +129,9 @@ public class AddAdmin extends javax.swing.JFrame {
         AdminPanel adminPanel = AdminPanel.getInstance();
         adminPanel.setVisible(true);
         this.setVisible(false);
+        txtEmail.setText("");
+        txtPass.setText("");
+        txtUser.setText("");
         this.dispose();
         
     }//GEN-LAST:event_btnBackMouseClicked

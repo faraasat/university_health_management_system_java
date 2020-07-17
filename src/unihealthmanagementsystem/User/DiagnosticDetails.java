@@ -32,9 +32,10 @@ public class DiagnosticDetails extends javax.swing.JFrame {
     }
     
     // fetchData Method
-    public void fetchData(){
+    private void fetchData(){
         dbClass.Connect();
         ResultSet rs = dbClass.getDiaDetails();
+        tblShow.updateUI();
         tblShow.setModel(DbUtils.resultSetToTableModel(rs));
     }
 
@@ -116,6 +117,7 @@ public class DiagnosticDetails extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(710, 60, 220, 40);
 
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/backIco.png"))); // NOI18N
         btnBack.setText("Back");
         btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -139,8 +141,8 @@ public class DiagnosticDetails extends javax.swing.JFrame {
     // btnBackMouseClicked Mouse Event
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
        
-        Login login = Login.getInstance();
-        login.setVisible(true);
+        PatientPanel patientPanel = PatientPanel.getInstance();
+        patientPanel.setVisible(true);
         this.setVisible(false);
         this.dispose();
         
@@ -196,6 +198,8 @@ public class DiagnosticDetails extends javax.swing.JFrame {
             default:
                 break;
         }
+        this.setVisible(false);
+        this.dispose();
         
     }//GEN-LAST:event_tblShowMouseClicked
 

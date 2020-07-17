@@ -121,21 +121,23 @@ public class AddUser extends javax.swing.JFrame {
         jLabel11.setText("Enter Mobile No.");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 131, 31));
 
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cross.png"))); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelMouseClicked(evt);
             }
         });
-        jPanel2.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, 70, 30));
+        jPanel2.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 450, -1, 40));
 
+        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/plus.png"))); // NOI18N
         btnOk.setText("Add");
         btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnOkMouseClicked(evt);
             }
         });
-        jPanel2.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 70, 30));
+        jPanel2.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 90, 40));
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 500, -1, -1));
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 500, 40, 14));
 
@@ -189,6 +191,13 @@ public class AddUser extends javax.swing.JFrame {
         AdminPanel ap = AdminPanel.getInstance();
         ap.setVisible(true);
         this.setVisible(false);
+        txtName.setText("");
+        txtAdd.setText("");
+        txtConfPass.setText("");
+        txtEmail.setText("");
+        txtMobile.setText("");
+        txtPass.setText("");
+        txtSal.setText("");
         this.dispose();
         
     }//GEN-LAST:event_btnCancelMouseClicked
@@ -222,6 +231,8 @@ public class AddUser extends javax.swing.JFrame {
             boolean value = isEmailValid(txtEmail.getText());
             if(!value){
                 JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
+            } else if(txtMobile.getText().length() != 10){
+                JOptionPane.showMessageDialog(null, "Please check entered mobile No. 10 digits are required");
             }
             else{
                 boolean val = dbClass.addUser(txtName.getText(), txtPass.getText(), txtEmail.getText(), sal, txtAdd.getText(), mob);

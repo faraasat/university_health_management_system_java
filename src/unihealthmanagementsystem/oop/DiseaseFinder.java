@@ -61,7 +61,7 @@ public class DiseaseFinder {
                 break;
             default:
                 break;
-        } 
+        }
         if(Double.parseDouble(temperature) > 98.2){
             if(a.get(0).equals("Fever") || a.get(0).equals("Flu") || a.get(0).equals("Headace") && a.get(1).equals("Fever") || a.get(1).equals("Flu") || a.get(1).equals("Headace") && a.get(2).equals("Fever") || a.get(2).equals("Flu") || a.get(2).equals("Headace")){
                 s = "Your diagnosed disease is viral Influenza\nMedicine for you are  \n  -1) Panadol x" + num + " " + t + " times \n  -2) Hydrilin Syrup x" + num + " " + t + " times \n  -3) Calpol Syrup x" + num + " " + t + " times";

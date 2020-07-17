@@ -222,6 +222,7 @@ public class AddPStu extends javax.swing.JFrame {
         lblCountry.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         lblCountry.setText("Enter Country:");
 
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cross.png"))); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -229,7 +230,8 @@ public class AddPStu extends javax.swing.JFrame {
             }
         });
 
-        btnOk.setText("Proceed");
+        btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/plus.png"))); // NOI18N
+        btnOk.setText("Add");
         btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnOkMouseClicked(evt);
@@ -508,9 +510,8 @@ public class AddPStu extends javax.swing.JFrame {
     // btnCancelMouseClicked Mouse Event
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
         
-        dbClass.clearAll(this.getContentPane());
-        PatientPanel ap = PatientPanel.getInstance();
-        ap.setVisible(true);
+        AddPatient addPatient = AddPatient.getInstance();
+        addPatient.setVisible(true);
         this.setVisible(false);
         this.dispose();
         
@@ -538,6 +539,8 @@ public class AddPStu extends javax.swing.JFrame {
             boolean value = isEmailValid(txtEmail.getText());
             if(!value){
                 JOptionPane.showMessageDialog(null, "Please enter your email according to standards");
+            } else if(txtMobile.getText().length() != 10){
+                JOptionPane.showMessageDialog(null, "Please check entered mobile No. 10 digits are required");
             }             
             else{
                 Date d = txtDob.getDate();

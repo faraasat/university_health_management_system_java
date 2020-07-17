@@ -65,14 +65,16 @@ public class AddPatient extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 50));
 
+        btnPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/goIco.png"))); // NOI18N
         btnPro.setText("Proceed");
         btnPro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnProMouseClicked(evt);
             }
         });
-        getContentPane().add(btnPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(329, 190, 100, 40));
+        getContentPane().add(btnPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 190, 110, 40));
 
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/backIco.png"))); // NOI18N
         btnBack.setText("Back");
         btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

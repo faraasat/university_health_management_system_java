@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
@@ -24,12 +22,10 @@ public class DiagnosisSystem extends javax.swing.JFrame{
     Login login = Login.getInstance();
     private boolean flag;
     static String nameFor;
-    Thread t=null;  
     private int hours=0, minutes=0, seconds=0;  
     private String timeString = ""; 
     private String[] a = new String[5];
     private ArrayList arr = new ArrayList();
-    private String genNo = "Uni-" + atInitialize();
     
     // Constructor
     public DiagnosisSystem() {
@@ -56,6 +52,7 @@ public class DiagnosisSystem extends javax.swing.JFrame{
         txtAge.disable();
         comD2.setVisible(false);
         comD3.setVisible(false);
+        genNo();
     }
     
     // Creating Instance
@@ -64,6 +61,11 @@ public class DiagnosisSystem extends javax.swing.JFrame{
         if(instance == null)
             instance = new DiagnosisSystem();
         return instance;
+    }
+    
+    // genNo method
+    private String genNo(){
+        return "Uni-" + atInitialize();
     }
 
     // setNameFor Method
@@ -82,6 +84,7 @@ public class DiagnosisSystem extends javax.swing.JFrame{
     private void fetchDatum(){
         dbClass.Connect();
         ResultSet rs = dbClass.patientDetails();
+        tblDet.updateUI();
         tblDet.setModel(DbUtils.resultSetToTableModel(rs));
     }
 
@@ -130,16 +133,19 @@ public class DiagnosisSystem extends javax.swing.JFrame{
     // arrayCheck Method
     private String arrayCheck(){
         int si = arr.size();
-        String abc;
-        if(si == 3){
-            abc = arr.get(0).toString()+ ", " + arr.get(1).toString()+ ",  "+ arr.get(2).toString();
-            return abc;
-        } else if(si == 2){
-            abc = arr.get(0).toString()+ ", " + arr.get(1).toString();
-            return abc;
-        } else if(si == 3){
-            abc = arr.get(0).toString();
-            return abc;
+        String values;
+        switch (si) {
+            case 3:
+                values = arr.get(0).toString()+ ", " + arr.get(1).toString()+ ",  "+ arr.get(2).toString();
+                return values;
+            case 2:
+                values = arr.get(0).toString()+ ", " + arr.get(1).toString();
+                return values;
+            case 1:
+                values = arr.get(0).toString();
+                return values;
+            default:
+                break;
         }
         return null;
     }
@@ -157,7 +163,6 @@ public class DiagnosisSystem extends javax.swing.JFrame{
                 f = f + 32;
                 btnDeg.setText("F");
                 txtFever.setText(df.format(f));
-                System.out.println(df.format(f));
                 return true;
             }
         } else if(temp.equals("F")){
@@ -182,14 +187,11 @@ public class DiagnosisSystem extends javax.swing.JFrame{
         return my;
     }
     
-    // DigitalWatch Method
-    private class DigitalWatch implements Runnable{  
-        JFrame f;  
+    // DigitalWatch inner class
+    private class DigitalWatch implements Runnable{ 
+        
         Thread t=null;  
-        int hours=0, minutes=0, seconds=0;  
-        String timeString = "";  
-        JButton b;  
-
+        
         DigitalWatch(){
             t = new Thread(this);  
             t.start();  
@@ -302,9 +304,8 @@ public class DiagnosisSystem extends javax.swing.JFrame{
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(194, 194, 194)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1190, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1384, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -403,6 +404,7 @@ public class DiagnosisSystem extends javax.swing.JFrame{
         pDia.add(txtAge);
         txtAge.setBounds(1180, 50, 90, 40);
 
+        btnDiagnose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/diaIco.png"))); // NOI18N
         btnDiagnose.setText("Diagnose");
         btnDiagnose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -478,6 +480,7 @@ public class DiagnosisSystem extends javax.swing.JFrame{
         pDia.add(comD3);
         comD3.setBounds(590, 210, 180, 40);
 
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/backIco.png"))); // NOI18N
         btnBack.setText("Back");
         btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -676,7 +679,6 @@ public class DiagnosisSystem extends javax.swing.JFrame{
                 ImageIcon img = new ImageIcon("src\\icon\\crossLgIco.png");
                 lblRW.setIcon(img);
                 int r = JOptionPane.showConfirmDialog(null, "Patient Name/Details not available \nDo you want to add Patient?");
-                System.out.println(r);
                 if(r == 0){
                     PatientPanel patientPanel = PatientPanel.getInstance();
                     patientPanel.setVisible(true);
@@ -783,35 +785,35 @@ public class DiagnosisSystem extends javax.swing.JFrame{
                     switch (res.getString("Role").trim()) {
                         case "Student":
                         {
-                            PhyInfo phyInfo = new PhyInfo(genNo, a[0], a[1], a[2], a[3], a[4]);
+                            PhyInfo phyInfo = new PhyInfo(genNo(), a[0], a[1], a[2], a[3], a[4]);
                             Student student = new Student(res.getString("pName"), res.getString("GuardianName"), res.getString("RegistrationNo"), res.getString("Cnic"), res.getString("Mobile"), res.getString("Gender"), res.getString("Dob"), res.getString("Handicap"), res.getString("Address"), res.getString("Email"), res.getString("BloodGroup"), res.getString("Nationality"), res.getString("trackRecord"), res.getString("isPsyFit"), res.getString("Shift"), res.getString("JoiningDate"), res.getString("LandLine"), res.getString("hasMedIns"), res.getString("Department"), res.getString("isCivil"), res.getString("Semester"), res.getString("SemDuration"), res.getString("Days"), res.getString("SemFees"));
                             Diagnostic1 diagnostic1 = new Diagnostic1("PID-" + atInitialize(), comCondition1.getSelectedItem().toString(), arr,txtFever.getText(), txtSug.getText(), splitUp(), txtTime.getText(), txtDate.getText());
                             UniDWriter uniWriter = new UniDWriter();
                             uniWriter.StuWrite(phyInfo, student, diagnostic1);
                             dbClass.Connect();
-                            dbClass.patientDiaDetails("PID-"+atInitialize(), txtName.getText(), txtReg.getText(), genNo, comCondition1.getSelectedItem().toString(), txtFever.getText(), arrayCheck(), txtDate.getText(), txtTime.getText(), resStr);
+                            dbClass.patientDiaDetails("PID-"+atInitialize(), txtName.getText(), txtReg.getText(), genNo(), comCondition1.getSelectedItem().toString(), txtFever.getText(), arrayCheck(), txtDate.getText(), txtTime.getText(), resStr);
                             break;
                         }
                         case "Faculty":
                         {
-                            PhyInfo phyInfo = new PhyInfo(genNo, a[0], a[1], a[2], a[3], a[4]);
+                            PhyInfo phyInfo = new PhyInfo(genNo(), a[0], a[1], a[2], a[3], a[4]);
                             Faculty faculty = new Faculty(res.getString("pName"), res.getString("GuardianName"), res.getString("RegistrationNo"), res.getString("Cnic"), res.getString("Mobile"), res.getString("Gender"), res.getString("Dob"), res.getString("Handicap"), res.getString("Address"), res.getString("Email"), res.getString("BloodGroup"), res.getString("Nationality"), res.getString("trackRecord"), res.getString("isPsyFit"), res.getString("JoiningDate"), res.getString("LandLine"), res.getString("hasMedIns"), res.getString("Shift"), res.getString("Department"), res.getString("Post"), res.getString("Salary"));
                             Diagnostic1 diagnostic1 = new Diagnostic1("PID-" + atInitialize(), comCondition1.getSelectedItem().toString(), arr,txtFever.getText(), txtSug.getText(), splitUp(), txtTime.getText(), txtDate.getText());
                             UniDWriter uniWriter = new UniDWriter();
                             uniWriter.FacWrite(phyInfo, faculty, diagnostic1);
                             dbClass.Connect();
-                            dbClass.patientDiaDetails("PID-"+atInitialize(), txtName.getText(), txtReg.getText(), genNo, comCondition1.getSelectedItem().toString(), txtFever.getText(), arrayCheck(), txtDate.getText(), txtTime.getText(), resStr);
+                            dbClass.patientDiaDetails("PID-"+atInitialize(), txtName.getText(), txtReg.getText(), genNo(), comCondition1.getSelectedItem().toString(), txtFever.getText(), arrayCheck(), txtDate.getText(), txtTime.getText(), resStr);
                             break;
                         }
                         case "Worker":
                         {
-                            PhyInfo PhyInfo = new PhyInfo(genNo, a[0], a[1], a[2], a[3], a[4]);
+                            PhyInfo PhyInfo = new PhyInfo(genNo(), a[0], a[1], a[2], a[3], a[4]);
                             Worker worker = new Worker(res.getString("pName"), res.getString("GuardianName"), res.getString("RegistrationNo"), res.getString("Cnic"), res.getString("Mobile"), res.getString("Gender"), res.getString("Dob"), res.getString("Handicap"), res.getString("Address"), res.getString("Email"), res.getString("BloodGroup"), res.getString("Nationality"), res.getString("trackRecord"), res.getString("isPsyFit"), res.getString("JoiningDate"), res.getString("LandLine"), res.getString("hasMedIns"), res.getString("Shift"), res.getString("work"), res.getString("Salary"));
                             Diagnostic1 diagnostic1 = new Diagnostic1("PID-" + atInitialize(), comCondition1.getSelectedItem().toString(), arr,txtFever.getText(), txtSug.getText(), splitUp(), txtTime.getText(), txtDate.getText());
                             UniDWriter uniWriter = new UniDWriter();
                             uniWriter.WorWrite(PhyInfo, worker, diagnostic1);
                             dbClass.Connect();
-                            dbClass.patientDiaDetails("PID-"+atInitialize(), txtName.getText(), txtReg.getText(), genNo, comCondition1.getSelectedItem().toString(), txtFever.getText(), arrayCheck(), txtDate.getText(), txtTime.getText(), resStr);
+                            dbClass.patientDiaDetails("PID-"+atInitialize(), txtName.getText(), txtReg.getText(), genNo(), comCondition1.getSelectedItem().toString(), txtFever.getText(), arrayCheck(), txtDate.getText(), txtTime.getText(), resStr);
                             break;
                         }
                         default:
@@ -828,6 +830,21 @@ public class DiagnosisSystem extends javax.swing.JFrame{
                 comD1.setSelectedIndex(0);
                 comD2.setSelectedIndex(0);
                 comD3.setSelectedIndex(0);
+                txtFever.setText("");
+                txtSug.setText("None");
+                txtRes.setText("");
+                btnBack.setVisible(true);
+                btnDiagnose.setText("Diagnose");
+                ImageIcon img = new ImageIcon("src\\icon\\questIco.png");
+                lblRW.setIcon(img);
+                txtName.enable();
+                txtReg.enable();
+                btnCheck.setText("Check Info..");
+                flag = false;
+                pTbl.setVisible(true);
+                pDia.setVisible(false);
+                txtName.setText("");
+                txtReg.setText("");
                 PatientPanel patientPanel = PatientPanel.getInstance();
                 patientPanel.setVisible(true);
                 this.setVisible(false);
