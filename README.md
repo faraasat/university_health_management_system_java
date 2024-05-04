@@ -3,7 +3,35 @@
 
 #### Welcome to the University Health Management System project! This project, developed as part of the Object-Oriented Course using Java and Java Swing GUI, provides a user-friendly graphical interface for managing the health records of employees, students, and teachers in a university setting. The system allows recording data about patients, and their diseases and provides basic medical treatment suggestions. With comprehensive CRUD (Create, Read, Update, Delete) features and support for text documents and MS Access as databases, this project offers an efficient solution for managing health-related information.
 
-<br />
+---
+
+### 📜 Case Study for "University Health Management System":
+
+#### 🔗 Website URL: N/A
+#### 😋 GitHub URL: https://github.com/faraasat/university_health_management_system_java/
+
+
+#### 📚 Course: Object-Oriented Programming (OOP)
+This project was completed as a requirement for the Object-Oriented Programming (OOP) course.
+
+#### 💎 Client:
+This project was made as a university project, so there was no external client. The goal was to demonstrate proficiency in Object-Oriented Programming by developing a functional University Health Management System.
+
+#### 📌 Problem:
+For this project, there was no specific problem to solve. The objective was to design and develop a comprehensive health management system for a university, showcasing Java programming skills.
+
+#### ⚡ Solution:
+The University Health Management System is a Java-based application that enables efficient management of student health records, appointments, and medical services. The system features:
+- User authentication and authorization
+- Student profile management
+- Appointment scheduling and management
+- Medical record management
+The system was developed using Java, with a focus on modularity, scalability, and user-friendliness.
+
+#### 🚀 Result:
+The project successfully demonstrated a comprehensive University Health Management System, meeting all the requirements and showcasing proficiency in Java programming. The system is functional, user-friendly, and scalable, making it a valuable asset for any university seeking to manage student health services effectively. The project's success demonstrates the ability to design, develop, and deploy a robust Java-based application.
+
+---
 
 ### ⚙️ Project Features
 
